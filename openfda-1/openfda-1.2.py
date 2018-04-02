@@ -11,10 +11,10 @@ repos_raw = r1.read().decode("utf-8")
 conn.close()
 
 repos1 = json.loads(repos_raw)
-repo=repos1['results']
+#repo=repos1['results']
 drugs=json.loads["drugs_raw"]["results"]
 
 for index in drugs:
-#print("These are another 10 drugs:", repo[0:10], ["id"])
-    #print(["spl_id"])
+print("These are another 10 drugs:", repo[0:10], ["id"])
+        print(["spl_id"])
 
