@@ -12,8 +12,7 @@ conn.close()
 
 repos1 = json.loads(repos_raw)
 repo=repos1['results']
-#drugs=json.loads["drugs_raw"]["results"]--> fail
 
 for i in range (0,10):
     print("The id of the following drug:", i+1,"is", repo[i], ["id"])
-      #  print(["spl_id"])--> no sense
+
