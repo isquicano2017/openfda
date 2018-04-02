@@ -15,6 +15,6 @@ repos1 = json.loads(repos_raw)
 drugs=json.loads["drugs_raw"]["results"]
 
 for index in drugs:
-print("These are another 10 drugs:", repo[0:10], ["id"])
+    print("These are another 10 drugs:", repo[0:10], ["id"])
         print(["spl_id"])
 
