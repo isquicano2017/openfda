@@ -132,10 +132,7 @@ for index in drugs:
 
 #https://api.fda.gov/drug/label.json
 PORT= 8000
-class testHTTPRequestHandler
-
-
-
+class testHTTPRequestHandler(http.server.BaseHTTPRequest.Handler):
     def do_GET(self):
          self.send_response(200)
 
