@@ -14,7 +14,7 @@ repos1 = json.loads(repos_raw)
 
 repo=repo['results']
 
-print("The id of the drug is", repo[0]['id'])
+
 
 
 
