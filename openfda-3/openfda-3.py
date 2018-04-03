@@ -103,7 +103,7 @@ except socket.error:
     print("Socket error. Problemas with the PORT {}".format(PORT))
     print("Launch it again in another port (and check the IP)")
 
-DRUGS: 10DRUGS
+#DRUGS: 10DRUGS
 
 import http.client
 import json
