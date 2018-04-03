@@ -131,3 +131,15 @@ for index in drugs:
 
 
 #https://api.fda.gov/drug/label.json
+PORT= 8000
+with open ("search.html") as file_search:
+           message= file_search.read()
+
+           self.wfile.write(bytes(message, "utf8"))
+           return
+Handler= http.server.SimpleHTTPRequestHandler
+Handler= testHTTPRequestHandler
+
+httpd= socketserver.TCPServer(("",Port), Handler)
+print("serving at port", PORT)
+httpd.serve_forever()
