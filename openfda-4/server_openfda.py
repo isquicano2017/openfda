@@ -39,3 +39,26 @@ try:
 
 except socket.error:
     print("Problemas using port %i. Do you have permission?" % PORT)
+
+#CÓDIGO A USAR:
+PORT= 8000
+class testHTTPRequestHandler(http.server.BaseHTTPRequest.Handler):
+    def do_GET(self):
+         self.send_response(200)
+
+         self.send.header( Content-type, text/html)
+         self.end_headers()
+
+
+with open ("search.html") as file_search:
+           message= file_search.read()
+
+           self.wfile.write(bytes(message, "utf8"))
+           return
+
+Handler= http.server.SimpleHTTPRequestHandler
+Handler= testHTTPRequestHandler
+
+httpd= socketserver.TCPServer(("",Port), Handler)
+print("serving at port", PORT)
+httpd.serve_forever()
