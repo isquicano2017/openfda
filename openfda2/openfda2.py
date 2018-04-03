@@ -16,7 +16,7 @@ repo=repo['results']
 
 print("The id of the drug is", repo[0]['id'])
 print("The purpose of the drug is", repo[0]['purpose'])
-print("The manufacture name of the drug is", repo[0]['openfda']['manufacturer_name'])
+
 
 
 
