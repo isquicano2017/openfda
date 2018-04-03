@@ -12,7 +12,7 @@ conn.close()
 
 repos1 = json.loads(repos_raw)
 
-repo=repo['results']
+repo=repo1['results']
 
 for element in repo:
     print("These are the corresponding manefactures that produce aspirin:",repo[0]['patient']['drug'][1]['openfda']['manufacturer_name'])
