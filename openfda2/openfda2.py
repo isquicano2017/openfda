@@ -14,7 +14,7 @@ repos1 = json.loads(repos_raw)
 
 repo=repo['results']
 
-
+for element in repo:
 
 
 
