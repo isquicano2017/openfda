@@ -23,4 +23,3 @@ for index in drugs:
 
 
 
-#https://api.fda.gov/drug/label.json
