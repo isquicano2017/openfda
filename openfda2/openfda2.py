@@ -15,7 +15,7 @@ repos1 = json.loads(repos_raw)
 repo=repo['results']
 
 for element in repo:
-    print("These are the corresponding manefactures that produce aaspirin")
+    print("These are the corresponding manefactures that produce aspirin:",)
 
 
 
