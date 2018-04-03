@@ -18,8 +18,6 @@ print("The id of the drug is", repo[0]['id'])
 print("The purpose of the drug is", repo[0]['purpose'])
 print("The manufacture name of the drug is", repo[0]['openfda']['manufacturer_name'])
 
-for index in drugs:
-    print( "These are another 10 drugs:",repo[0:10]['id'])
 
 
 
