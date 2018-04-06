@@ -3,6 +3,8 @@ import socketserver
 import http.client
 import json
 
+socketserver.TCPServer.allow_reuse_address= True
+
 PORT = 8094
 
 # HTTPRequestHandler class
