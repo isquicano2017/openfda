@@ -5,7 +5,7 @@ import json
 
 socketserver.TCPServer.allow_reuse_address= True
 
-PORT = 8094
+PORT = 8093
 
 # HTTPRequestHandler class
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
@@ -40,7 +40,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             message= ("The corresponding of the drug is:",repo[i]['id'])
 
         # Send message back to client
-        message = "Hello world! " + self.path
+        #message = "Hello world! " + self.path
         # Write content as utf-8 data
         self.wfile.write(bytes(message, "utf8"))
         return
