@@ -16,6 +16,10 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.send_header('Content-type','text/html')
         self.end_headers()
 
+        f=open ("test-html", 'r')
+        f.read(message)
+        f.close
+
         headers = {'User-Agent': 'http-client'}
 
         conn = http.client.HTTPSConnection("api.fda.gov")
