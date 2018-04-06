@@ -30,6 +30,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         repos1 = json.loads(repos_raw)
 
         repo = repos1['results']
+        for i in range [0,10]:
+            message= ("The corresponding of the drug is:",repo[i]['id'])
 
         # Send message back to client
         message = "Hello world! " + self.path
