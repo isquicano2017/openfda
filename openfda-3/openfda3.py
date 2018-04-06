@@ -27,6 +27,10 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
         repos1 = json.loads(repos_raw)
 
+        repos1 = json.loads(repos_raw)
+
+        repo = repos1['results']
+
         # Send message back to client
         message = "Hello world! " + self.path
         # Write content as utf-8 data
