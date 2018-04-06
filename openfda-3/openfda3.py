@@ -3,7 +3,7 @@ import socketserver
 import http.client
 import json
 
-PORT = 8095
+PORT = 8094
 
 # HTTPRequestHandler class
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
@@ -16,7 +16,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.send_header('Content-type','text/html')
         self.end_headers()
 
-        f=open ("test-html", 'r')
+        f=open ('test-html.html', 'r')
         f.read(message)
         f.close
 
