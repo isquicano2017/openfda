@@ -19,7 +19,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
 
         f=open ('test-html.html', 'r')
-        f.read(message)
+        f.read()
         f.close
 
         headers = {'User-Agent': 'http-client'}
