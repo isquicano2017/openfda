@@ -5,7 +5,7 @@ import json
 
 socketserver.TCPServer.allow_reuse_address= True
 
-PORT = 8091
+PORT = 8090
 
 # HTTPRequestHandler class
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
