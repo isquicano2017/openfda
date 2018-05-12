@@ -33,7 +33,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             conn.close()
 
             with open("html_file_2.html", "w"):
-                self.wfile.write(bytes('<html><head><h1>Here you are:</h1><body style="background-color: yellow">\n<ol>', "utf8"))
+                self.wfile.write(bytes('<html><head> <h2><font face= "Lucida Handwriting">Search OpenFDA</font></h2><h2>Open FDA first web </h2><h2>Drug Label<input name="label"></h2><input type = "submit"><p><img src ="https://media.giphy.com/media/zk8myPBS6zuWQ/giphy.gif"></p>', "utf8"))
                 for i in range(len(repos['results'])):
                     try:
                         drug = '<li>' + repos['results'][i]["openfda"]["generic_name"][0] + '</li>'
