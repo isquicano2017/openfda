@@ -4,8 +4,8 @@ import http.client
 import json
 
 # -- IP and the port of the server
-IP = "10.3.52.149"  # Localhost means "I": your local machine
-PORT = 9009
+IP = "10.10.108.140"  # Localhost means "I": your local machine
+PORT = 9006
 
 # HTTPRequestHandler class
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
