@@ -109,6 +109,24 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             try:
                 print("A request has been made by the client")
                 active = path.split("=")[1].split("&")[0]
+                try:
+                    limit=path.split("=")[2]
+            if "&" not in self.path:
+                    limit = "10"
+                    params = self.path.split("?")[1]
+                    drug = params.split("&")[0].split("=")[1]
+
+                    alpha = Client.communicate_active(drug, limit)
+                    Parser.extract_data_sdrugs(alpha, list_1)
+
+                elif "&" in self.path:
+                    params = self.path.split("?")[1]
+                    drug = params.split("&")[0].split("=")[1]
+                    limit = params.split("&")[1].split("=")[1]
+                    if not limit:
+                        limit = "10"
+                    alpha = Client.communicate_active(drug, limit)
+                    Parser.extract_data_sdrugs(alpha, list_1)
 
 
 
