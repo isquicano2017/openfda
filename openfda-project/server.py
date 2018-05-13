@@ -118,7 +118,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
                     obj1 = Client.communicate_active(drug, limit)
                     Parser.extract_data_sdrugs(obj1, list1)
-                
+
 
                 elif "&" in self.path:
                     params = self.path.split("?")[1]
@@ -154,6 +154,16 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                         limit = "10"
                     obj4 = Client.communicate_active(drug, limit)
                     Parser.extract_data_sdrugs(obj4, list1)
+        elif "listDrugs" in self.path:
+            self.send_response(200)
+            self.send_header('Type of content', 'text/html')
+            self.end_headers()
+            list1 = []
+            try:
+                print("A request has been made by the client")
+                active = path.split("=")[1].split("&")[0]
+                try:
+                    limit=path.split("=")[2]
 
 
 
