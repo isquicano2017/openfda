@@ -80,5 +80,10 @@ class OpenFdaHTML():
         for i in json_list:
             file_html+= "<li>"+ i + "</li>"
         file_html += "</ul>"
-        
+        print( "The corresponding HTML file has been created")
+    def file_transmit(self,doc):
+        with open(doc, "r") as f:
+            content= f.read()
+        print(doc, "is succesfully prepared to be sent")
+
 
