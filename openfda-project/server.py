@@ -117,7 +117,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     drug = params.split("&")[0].split("=")[1]
 
                     alpha = Client.communicate_active(drug, limit)
-                    Parser.extract_data_sdrugs(alpha, list_1)
+                    Parser.extract_data_sdrugs(alpha, list1)
 
                 elif "&" in self.path:
                     params = self.path.split("?")[1]
@@ -126,7 +126,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     if not limit:
                         limit = "10"
                     alpha = Client.communicate_active(drug, limit)
-                    Parser.extract_data_sdrugs(alpha, list_1)
+                    Parser.extract_data_sdrugs(alpha, list1)
 
 
 
