@@ -177,6 +177,19 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     limit = path.split("=")[1]
             obj6 = Client.communicate_list(limit)
             Parser.extract_data_ldrugs(obj6, list1)
+        elif "listWarnings" in self.path:
+            self.send_response(200)
+            self.send_header('Type of content', 'text/html')
+            self.end_headers()
+            list1 = []
+            try:
+                print("A request has been made by the client")
+                try:
+                    limit = path.split("=")[1]
+            obj7 = Client.communicate_list(limit)
+            Parser.extract_data_ldrugs(obj7, list1)
+
+
 
 
 
