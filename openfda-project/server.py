@@ -18,7 +18,7 @@ class OpenFDAClient():
         conn.close()
         drug = json.loads(drugs_raw)
         drugs_1 = drug
-        return drugs_1
+        return drugs1
     def inform_company (self, drug, limit):
         headers = {'User-Agent': 'http-client'}
         conn = http.client.HTTPSConnection("api.fda.gov")
@@ -30,7 +30,7 @@ class OpenFDAClient():
         conn.close()
         drug = json.loads(drugs_raw)
         drugs_1 = drug
-        return drugs_1
+        return drugs1
     def inform_lists (self, limit):
         headers = {'User-Agent': 'http-client'}
         conn = http.client.HTTPSConnection("api.fda.gov")
@@ -41,5 +41,14 @@ class OpenFDAClient():
         conn.close()
         drug = json.loads(drugs_raw)
         drugs_1 = drug
-        return drugs_1
+        return drugs1
+
+class OpenFDAParser():
+    def info_drugs (self,drugs1,list1,limit=10):
+        for i in range(len(drugs1['results'][i])):
+            if 'active_ingredient' in drugs1['results'][i]:
+                list1.append(drugs1['results'][i]['active_ingredient'][0])
+            else:
+                list1.append ('Unknown')
+    def info_companies (self, drugs1, list1, limit=10):
 
