@@ -7,6 +7,15 @@ IP= "localhost"
 PORT= 9006
 socketserver.TCPServer.allow_reuse_address= True
 
-class OpenFDAHTML():
-    def html_visual(self, list_1):
-        
+class OpenFDAClient():
+    def active_communication(self, drug, limit):
+        headers= {'User-Agent': 'http-client'}
+        conn= http.client.HTTPSConnection("api.fda.gov")
+        url=/drug/label.json?search=active_ingredient:" + drug + "&" + "limit=" + limit
+        conn.request("GET", url, None, headers)
+        r1 = conn.getresponse()
+        drugs_raw = r1.read().decode("utf-8")
+        conn.close()
+        drug = json.loads(drugs_raw)
+        drugs_1 = drug
+        return drugs_1
