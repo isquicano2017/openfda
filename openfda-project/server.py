@@ -74,4 +74,11 @@ class OpenFDAParser():
                 list1.append(drugs1['results'][i]['openfda']['warnings'][0])
             else:
                 list1.append('Unknown')
+class OpenFdaHTML():
+    def new_html(self,json_list):
+        file_html= "<ul>"
+        for i in json_list:
+            file_html+= "<li>"+ i + "</li>"
+        file_html += "</ul>"
+        
 
