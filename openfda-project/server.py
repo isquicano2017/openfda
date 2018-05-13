@@ -118,6 +118,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
                     obj1 = Client.communicate_active(drug, limit)
                     Parser.extract_data_sdrugs(obj1, list1)
+                
 
                 elif "&" in self.path:
                     params = self.path.split("?")[1]
