@@ -161,9 +161,23 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             list1 = []
             try:
                 print("A request has been made by the client")
-                active = path.split("=")[1].split("&")[0]
                 try:
-                    limit=path.split("=")[2]
+                    limit=path.split("=")[1]
+
+            obj5 = Client.communicate_list(limit)
+            Parser.extract_data_ldrugs(obj5, list1)
+        elif "listCompanies" in self.path:
+            self.send_response(200)
+            self.send_header('Type of content', 'text/html')
+            self.end_headers()
+            list1 = []
+            try:
+                print("A request has been made by the client")
+                try:
+                    limit = path.split("=")[1]
+            obj6 = Client.communicate_list(limit)
+            Parser.extract_data_ldrugs(obj6, list1)
+
 
 
 
