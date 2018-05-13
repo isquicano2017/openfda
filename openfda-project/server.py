@@ -84,5 +84,23 @@ class OpenFdaHTML():
         with open(doc, "r") as f:
             content= f.read()
         print(doc, "is succesfully prepared to be sent")
+        return
+class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
+    def do_GET(self):
+        client=OpenFDAClient()
+        parser= OpenFDAParser
+        HTML= OpenFdaHTML
+        #code=False
+        path= self.path
+        if path!= "/favicon.ico":
+            print("path is:%s..."%path)
+        if path=="/":
+            self.send_response(200)
+            self.send_header('Type of content', 'text/html')
+            self.end_headers()
+            with open("search_html", "r")as f:
+                content= f.read
+                self.wfile.write(bytes(content,"utf8"))
+        elif "SearchDrug"
 
 
