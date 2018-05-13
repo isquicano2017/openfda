@@ -51,4 +51,15 @@ class OpenFDAParser():
             else:
                 list1.append ('Unknown')
     def info_companies (self, drugs1, list1, limit=10):
-
+        for i in range(len(drugs1['results'][i])):
+            if 'openfda' in drugs1['results'][i]:
+                list1.append(drugs1['results'][i]['openfda']['manufacturer name'][0])
+            else:
+                list1.append('Unknown')
+    def info_drugs1(self, drugs1, list1, limit=10):
+        for i in range(len(drugs1['results'][i])):
+            if 'openfda' in drugs1['results'][i]:
+                list1.append(drugs1['results'][i]['openfda']['brand_name'][0])
+            else:
+                list1.append('Unknown')
+    def info_companies1(self):
