@@ -101,6 +101,15 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             with open("search_html", "r")as f:
                 content= f.read
                 self.wfile.write(bytes(content,"utf8"))
-        elif "SearchDrug"
+        elif "SearchDrug" in self.path:
+            self.send_response(200)
+            self.send_header('Type of content', 'text/html')
+            self.end_headers()
+            list1=[]
+            try:
+                print("A request has been made by the client")
+                active = path.split("=")[1].split("&")[0]
+
+
 
 
