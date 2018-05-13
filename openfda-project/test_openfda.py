@@ -26,7 +26,7 @@ import threading
 import time
 import unittest
 
-import requests
+import request
 
 from html.parser import HTMLParser
 
