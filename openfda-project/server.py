@@ -101,7 +101,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             with open("search_html", "r")as f:
                 content= f.read
                 self.wfile.write(bytes(content,"utf8"))
-        elif "SearchDrug" in self.path:
+        elif "searchDrug" in self.path:
             self.send_response(200)
             self.send_header('Type of content', 'text/html')
             self.end_headers()
@@ -116,8 +116,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     params = self.path.split("?")[1]
                     drug = params.split("&")[0].split("=")[1]
 
-                    alpha = Client.communicate_active(drug, limit)
-                    Parser.extract_data_sdrugs(alpha, list1)
+                    obj1 = Client.communicate_active(drug, limit)
+                    Parser.extract_data_sdrugs(obj1, list1)
 
                 elif "&" in self.path:
                     params = self.path.split("?")[1]
@@ -125,8 +125,34 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     limit = params.split("&")[1].split("=")[1]
                     if not limit:
                         limit = "10"
-                    alpha = Client.communicate_active(drug, limit)
-                    Parser.extract_data_sdrugs(alpha, list1)
+                    obj2 = Client.communicate_active(drug, limit)
+                    Parser.extract_data_sdrugs(obj2, list1)
+        elif "searchCompany" in self.path:
+            self.send_response(200)
+            self.send_header('Type of content', 'text/html')
+            self.end_headers()
+            list1 = []
+            try:
+                print("A request has been made by the client")
+                active = path.split("=")[1].split("&")[0]
+                try:
+                    limit=path.split("=")[2]
+            if "&" not in self.path:
+                    limit = "10"
+                    params = self.path.split("?")[1]
+                    drug = params.split("&")[0].split("=")[1]
+
+                    obj3 = Client.communicate_active(drug, limit)
+                    Parser.extract_data_sdrugs(obj3, list1)
+
+                elif "&" in self.path:
+                    params = self.path.split("?")[1]
+                    drug = params.split("&")[0].split("=")[1]
+                    limit = params.split("&")[1].split("=")[1]
+                    if not limit:
+                        limit = "10"
+                    obj4 = Client.communicate_active(drug, limit)
+                    Parser.extract_data_sdrugs(obj4, list1)
 
 
 
