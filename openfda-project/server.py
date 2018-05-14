@@ -178,19 +178,26 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 list1 = []
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
-            obj6 = Client.communicate_list(limit)
-            Parser.extract_data_ldrugs(obj6, list1)
-        elif "listWarnings" in self.path:
-            self.send_response(200)
-            self.send_header('Type of content', 'text/html')
-            self.end_headers()
-            list1 = []
-            try:
-                print("A request has been made by the client")
-                try:
-                    limit = path.split("=")[1]
-            obj7 = Client.communicate_list(limit)
-            Parser.extract_data_ldrugs(obj7, list1)
+
+                obj6 = Client.inform_company(limit)
+                Parser.info_companies1(obj6, list1)
+
+                HTML.html_visual(list1)
+                with open("drug.html", "r") as f:
+                    f = f.read()
+                self.wfile.write(bytes(f, "utf8"))
+            elif "listWarnings" in self.path:
+                self.send_response(200)
+                self.send_header('Type of content', 'text/html')
+                self.end_headers()
+
+                list1 = []
+                params = self.path.split("?")[1]
+                limit = params.split("=")[1]
+
+                obj7 = Client.info_warnings(limit)
+                Parser.warnings(obj7, list1)
+
 
 
 
