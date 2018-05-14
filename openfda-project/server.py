@@ -4,7 +4,7 @@ import json
 import http.client
 
 IP = "10.10.108.135"
-PORT = 8095
+PORT = 8097
 socketserver.TCPServer.allow_reuse_address = True
 
 
