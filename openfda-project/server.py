@@ -4,7 +4,7 @@ import json
 import http.client
 
 IP = "10.10.108.135"
-PORT = 8095
+PORT = 8097
 socketserver.TCPServer.allow_reuse_address = True
 
 class OpenFDA_HTML():
@@ -19,7 +19,7 @@ class OpenFDA_HTML():
                 f.write(elem_1)
             f.write(final)
 
-HTML= OpenFDA_HTMLHTML()
+HTML= OpenFDA_HTML()
 
 class OpenFDA_Client():
     def inform_drug(self, drug, limit):
