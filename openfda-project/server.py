@@ -95,7 +95,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 self.send_response(200)
                 self.send_header('Type of content', 'text/html')
                 self.end_headers()
-                with open("search_html", "r")as f:
+                with open("search.html", "r")as f:
                     content= f.read
                     self.wfile.write(bytes(content,"utf8"))
             elif "searchDrug" in self.path:
