@@ -179,13 +179,14 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj6 = Client.inform_company(limit)
+                obj6 = Client.inform_lists(limit)
                 Parser.info_companies1(obj6, list1)
 
                 HTML.html_visual(list1)
                 with open("drug.html", "r") as f:
                     f = f.read()
                 self.wfile.write(bytes(f, "utf8"))
+
             elif "listWarnings" in self.path:
                 self.send_response(200)
                 self.send_header('Type of content', 'text/html')
@@ -195,8 +196,13 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj7 = Client.info_warnings(limit)
-                Parser.warnings(obj7, list1)
+                obj7 = Client.inform_lists(limit)
+                Parser.info_warnings(obj7, list1)
+
+                HTML.html_visual(list1)
+                with open("drug.html", "r") as f:
+                    f = f.read()
+                self.wfile.write(bytes(f, "utf8"))
 
 
 
