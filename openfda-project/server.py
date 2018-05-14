@@ -122,17 +122,15 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     obj2 = Client.inform_drug(drug, limit)
                     Parser.info_drugs(obj2, list1)
                 HTML.html_visual(list1)
-        elif "searchCompany" in self.path:
-            self.send_response(200)
-            self.send_header('Type of content', 'text/html')
-            self.end_headers()
-            list1 = []
-            try:
-                print("A request has been made by the client")
-                active = path.split("=")[1].split("&")[0]
-                try:
-                    limit=path.split("=")[2]
-            if "&" not in self.path:
+                with open("drug.html", "r") as f:
+                    f=f.read()
+                self.wfile.write(bytes(f,"utf8"))
+            elif "searchCompany" in self.path:
+                self.send_response(200)
+                self.send_header('Type of content', 'text/html')
+                self.end_headers()
+                list1 = []
+                if "&" not in self.path:
                     limit = "10"
                     params = self.path.split("?")[1]
                     drug = params.split("&")[0].split("=")[1]
