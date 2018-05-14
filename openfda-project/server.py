@@ -108,11 +108,11 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 with open("search.html", "r")as f:
-                    data= f.read
+                    data = f.read()
                     self.wfile.write(bytes(data,"utf8"))
             elif "searchDrug" in self.path:
                 self.send_response(200)
-                self.send_header('Content-type', 'text/html')
+                self.send_header("Content-type", "text/html")
                 self.end_headers()
                 list1=[]
 
@@ -137,8 +137,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 HTML.visual_html(list1)
 
                 with open("drug.html", "r") as f:
-                    f=f.read()
-                self.wfile.write(bytes(f,"utf8"))
+                    file=f.read()
+                self.wfile.write(bytes(file,"utf8"))
 
             elif "searchCompany" in self.path:
                 self.send_response(200)
@@ -218,8 +218,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
                 HTML.visual_html(list1)
                 with open("drug.html", "r") as f:
-                    f = f.read()
-                self.wfile.write(bytes(f, "utf8"))
+                    file = f.read()
+                self.wfile.write(bytes(file, "utf8"))
 
             elif "secret" in self.path:
                 self.send_response(401)
