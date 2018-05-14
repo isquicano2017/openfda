@@ -4,28 +4,31 @@ import json
 import http.client
 
 IP = "10.10.108.135"
-PORT = 8004
+PORT = 8095
 socketserver.TCPServer.allow_reuse_address = True
+
 
 class OpenFDA_HTML():
     def visual_html(self, list1):
         intro = "<!doctype html>" + "\n" + "<html>" + "\n" + "<body>" + "\n" "<ul>" + "\n"
         final = "</ul>" + "\n" + "</body>" + "\n" + "</html>"
 
-        with open ("drug.html", "w") as f:
+        with open("drug.html", "w") as f:
             f.write(intro)
             for elem in list1:
                 elem_1 = "<li>" + elem + "</li>" + "\n"
                 f.write(elem_1)
             f.write(final)
 
+
 HTML = OpenFDA_HTML()
+
 
 class OpenFDA_Client():
     def inform_drug(self, drug, limit):
         headers = {"User-Agent": "http-client"}
         conn = http.client.HTTPSConnection("api.fda.gov")
-        url_inform_drug ="/drug/label.json?search=active_ingredient:" + drug + "&" + "limit=" + limit
+        url_inform_drug = "/drug/label.json?search=active_ingredient:" + drug + "&" + "limit=" + limit
         conn.request("GET", url_inform_drug, None, headers)
         r1 = conn.getresponse()
         drugs_raw = r1.read().decode("utf-8")
@@ -34,7 +37,7 @@ class OpenFDA_Client():
         drugs1 = drug
         return drugs1
 
-    def inform_company (self, drug, limit):
+    def inform_company(self, drug, limit):
         headers = {"User-Agent": "http-client"}
         conn = http.client.HTTPSConnection("api.fda.gov")
         url_inform_company = "/drug/label.json?search=manufacturer_name:" + drug + " & " + "limit = " + limit
@@ -46,7 +49,7 @@ class OpenFDA_Client():
         drugs1 = drug
         return drugs1
 
-    def inform_lists (self, limit):
+    def inform_lists(self, limit):
         headers = {"User-Agent": "http-client"}
         conn = http.client.HTTPSConnection("api.fda.gov")
         url_inform_lists = "/drug/label.json?" + "limit =" + limit
@@ -57,22 +60,27 @@ class OpenFDA_Client():
         drug = json.loads(drugs_raw)
         drugs1 = drug
         return drugs1
-Client= OpenFDA_Client()
+
+
+Client = OpenFDA_Client()
+
 
 class OpenFDA_Parser():
-    def info_drugs (self,drugs1,list1):
+    def info_drugs(self, drugs1, list1):
         for i in range(len(drugs1["results"])):
             if 'active_ingredient' in drugs1["results"][i]:
                 list1.append(drugs1["results"][i]["active_ingredient"][0])
             else:
-                list1.append ("Unknown")
-    def info_companies (self, drugs1, list1):
+                list1.append("Unknown")
+
+    def info_companies(self, drugs1, list1):
         for i in range(len(drugs1["results"])):
             try:
                 if 'openfda' in drugs1["results"][i]:
                     list1.append(drugs1["results"][i]["openfda"]["manufacturer name"][0])
             except KeyError:
                 list1.append("Unknown")
+
     def info_drugs1(self, drugs1, list1):
         for i in range(len(drugs1["results"])):
             try:
@@ -81,8 +89,6 @@ class OpenFDA_Parser():
             except KeyError:
                 list1.append("Unknown")
 
-
-
     def info_companies1(self, drugs1, list1):
         for i in range(len(drugs1["results"])):
             try:
@@ -90,31 +96,35 @@ class OpenFDA_Parser():
                     list1.append(drugs1["results"][i]["openfda"]["manufacturer_name"][0])
             except KeyError:
                 list1.append('Unknown')
+
     def info_warnings(self, drugs1, list1):
         for i in range(len(drugs1["results"])):
             if "warnings" in drugs1["results"][i]:
                 list1.append(drugs1["results"][i]["openfda"]["warnings"][0])
             else:
                 list1.append('Unknown')
-Parser= OpenFDA_Parser()
+
+
+Parser = OpenFDA_Parser()
+
 
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
 
         try:
 
-            if self.path =='/':
+            if self.path == '/':
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 with open("search.html", "r")as f:
                     data = f.read()
-                    self.wfile.write(bytes(data,"utf8"))
+                    self.wfile.write(bytes(data, "utf8"))
             elif "searchDrug" in self.path:
                 self.send_response(200)
                 self.send_header("Content-type", "text/html")
                 self.end_headers()
-                list1=[]
+                list1 = []
 
                 if "&" not in self.path:
                     limit = "10"
@@ -123,7 +133,6 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
                     obj1 = Client.inform_drug(drug, limit)
                     Parser.info_drugs(obj1, list1)
-
 
                 elif "&" in self.path:
                     params = self.path.split("?")[1]
@@ -137,8 +146,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 HTML.visual_html(list1)
 
                 with open("drug.html", "r") as f:
-                    file=f.read()
-                self.wfile.write(bytes(file,"utf8"))
+                    file = f.read()
+                self.wfile.write(bytes(file, "utf8"))
 
             elif "searchCompany" in self.path:
                 self.send_response(200)
@@ -247,6 +256,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(bytes(file, "utf8"))
 
         return
+
+
 Handler = testHTTPRequestHandler
 
 httpd = socketserver.TCPServer((IP, PORT), Handler)
@@ -258,11 +269,3 @@ except KeyboardInterrupt:
     pass
 
 httpd.server_close()
-
-
-
-
-
-
-
-
