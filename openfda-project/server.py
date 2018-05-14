@@ -3,8 +3,8 @@ import socketserver
 import json
 import http.client
 
-IP= "10.10.108.121"
-PORT= 8092
+IP= "10.10.108.135"
+PORT= 8090
 socketserver.TCPServer.allow_reuse_address= True
 
 class OpenFdaHTML():
