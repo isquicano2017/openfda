@@ -208,10 +208,10 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj7 = Client.inform_lists(limit)
+                obj7 = client.inform_lists(limit)
                 Parser.info_warnings(obj7, list1)
 
-                HTML.html_visual(list1)
+                HTML.visual_html(list1)
                 with open("drug.html", "r") as f:
                     f = f.read()
                 self.wfile.write(bytes(f, "utf8"))
