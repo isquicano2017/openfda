@@ -4,17 +4,19 @@ import json
 import http.client
 
 IP= "10.10.108.121"
-PORT= 8000
+PORT= 8001
 socketserver.TCPServer.allow_reuse_address= True
 
 class OpenFdaHTML():
-    def new_html(self,list1):
-        intro= "<!doctype html>" + "\n" + "<html>" + "\n" + "<body>" + "\n" + "<ul>" + "\n"
+    def visual_html(self,list1):
+        intro= "<!doctype html>" + "\n" + "<html>" + "\n" + "<body>" + "\n" "<ul>" + "\n"
         final= "</ul>" + "\n" + "</body>" + "\n" + "</html>"
         with open ("drug.html", "w") as f:
             f.write(intro)
             for elem in list1:
-                elem1= "<li>" +  elem + "</li>" + "\n"
+                elem_1= "<li>" +  elem + "</li>" + "\n"
+                f.write(elem_1)
+            f.write(final)
 HTML= OpenFdaHTML()
 
 class OpenFDAClient():
