@@ -57,32 +57,32 @@ client= OpenFDAClient()
 
 class OpenFDAParser():
     def info_drugs (self,drugs1,list1):
-        for i in range(len(drugs1["results"][i])):
+        for i in range(len(drugs1["results"])):
             if 'active_ingredient' in drugs1["results"][i]:
                 list1.append(drugs1["results"][i]["active_ingredient"][0])
             else:
                 list1.append ("Unknown")
     def info_companies (self, drugs1, list1):
-        for i in range(len(drugs1["results"][i])):
+        for i in range(len(drugs1["results"])):
             try:
                 if 'openfda' in drugs1["results"][i]:
                     list1.append(drugs1["results"][i]["openfda"]["manufacturer name"][0])
             except KeyError:
                 list1.append("Unknown")
     def info_drugs1(self, drugs1, list1):
-        for i in range(len(drugs1["results"][i])):
+        for i in range(len(drugs1["results"])):
             if "openfda" in drugs1["results"][i]:
                 list1.append(drugs1["results"][i]["openfda"]["brand_name"][0])
             except KeyError:
                 list1.append("Unknown")
     def info_companies1(self, drugs1, list1):
-        for i in range(len(drugs1["results"][i])):
+        for i in range(len(drugs1["results"])):
             if "openfda" in drugs1["results"][i]:
                 list1.append(drugs1["results"][i]["openfda"]["manufacturer_name"][0])
             except KeyError:
                 list1.append('Unknown')
     def info_warnings(self, drugs1, list1):
-        for i in range(len(drugs1["results"][i])):
+        for i in range(len(drugs1["results"])):
             if "warnings" in drugs1["results"][i]:
                 list1.append(drugs1["results"][i]["openfda"]["warnings"][0])
             else:
@@ -93,7 +93,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         try:
 
-            if path=='/':
+            if self.path =='/':
                 self.send_response(200)
                 self.send_header('Type of content', 'text/html')
                 self.end_headers()
