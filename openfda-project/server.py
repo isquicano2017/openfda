@@ -119,8 +119,9 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     limit = params.split("&")[1].split("=")[1]
                     if not limit:
                         limit = "10"
-                    obj2 = Client.communicate_active(drug, limit)
-                    Parser.extract_data_sdrugs(obj2, list1)
+                    obj2 = Client.inform_drug(drug, limit)
+                    Parser.info_drugs(obj2, list1)
+                HTML.html_visual(list1)
         elif "searchCompany" in self.path:
             self.send_response(200)
             self.send_header('Type of content', 'text/html')
