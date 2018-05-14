@@ -3,7 +3,7 @@ import socketserver
 import json
 import http.client
 
-IP = "localhost"
+IP = "Localhost"
 PORT = 8000
 socketserver.TCPServer.allow_reuse_address = True
 
