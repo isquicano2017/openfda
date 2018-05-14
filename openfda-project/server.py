@@ -3,27 +3,29 @@ import socketserver
 import json
 import http.client
 
-IP= "10.10.108.135"
-PORT= 8000
-socketserver.TCPServer.allow_reuse_address= True
+IP = "10.10.108.135"
+PORT = 8095
+socketserver.TCPServer.allow_reuse_address = True
 
 class OpenFdaHTML():
-    def visual_html(self,list1):
-        intro= "<!doctype html>" + "\n" + "<html>" + "\n" + "<body>" + "\n" "<ul>" + "\n"
-        final= "</ul>" + "\n" + "</body>" + "\n" + "</html>"
+    def visual_html(self, list1):
+        intro = "<!doctype html>" + "\n" + "<html>" + "\n" + "<body>" + "\n" "<ul>" + "\n"
+        final = "</ul>" + "\n" + "</body>" + "\n" + "</html>"
+
         with open ("drug.html", "w") as f:
             f.write(intro)
             for elem in list1:
-                elem_1= "<li>" +  elem + "</li>" + "\n"
+                elem_1 = "<li>" + elem + "</li>" + "\n"
                 f.write(elem_1)
             f.write(final)
+
 HTML= OpenFdaHTML()
 
 class OpenFDAClient():
     def inform_drug(self, drug, limit):
-        headers= {'User_Agent': 'http_client'}
-        conn= http.client.HTTPSConnection("api.fda.gov")
-        url_inform_drug="/drug/label.json?search=active_ingredient:" + drug + "&" + "limit=" + limit
+        headers = {'User-Agent': 'http-client'}
+        conn = http.client.HTTPSConnection("api.fda.gov")
+        url_inform_drug ="/drug/label.json?search=active_ingredient:" + drug + "&" + "limit=" + limit
         conn.request("GET", url_inform_drug, None, headers)
         r1 = conn.getresponse()
         drugs_raw = r1.read().decode("utf-8")
