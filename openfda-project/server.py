@@ -7,9 +7,19 @@ IP= "10.10.108.118"
 PORT= 9006
 socketserver.TCPServer.allow_reuse_address= True
 
+class OpenFdaHTML():
+    def new_html(self,list1):
+        intro= "<!doctype html>" + "\n" + "<html>" + "\n" + "<body>" + "\n" + "<ul>" + "\n"
+        final= "</ul>" + "\n" + "</body>" + "\n" + "</html>"
+        with open ("drug.html", "w") as f:
+            f.write(intro)
+            for elem in list1:
+                elem1= "<li>" +  elem + "</li>" + "\n"
+HTML= OpenFdaHTML()
+
 class OpenFDAClient():
     def inform_communication(self, drug, limit):
-        headers= {'User-Agent': 'http-client'}
+        headers= {'User_Agent': 'http_client'}
         conn= http.client.HTTPSConnection("api.fda.gov")
         url="/drug/label.json?search=active_ingredient:" + drug + "&" + "limit=" + limit
         conn.request("GET", url, None, headers)
@@ -17,7 +27,7 @@ class OpenFDAClient():
         drugs_raw = r1.read().decode("utf-8")
         conn.close()
         drug = json.loads(drugs_raw)
-        drugs_1 = drug
+        drugs1 = drug
         return drugs1
     def inform_company (self, drug, limit):
         headers = {'User-Agent': 'http-client'}
@@ -28,7 +38,7 @@ class OpenFDAClient():
         drugs_raw = r1.read().decode("utf-8")
         conn.close()
         drug = json.loads(drugs_raw)
-        drugs_1 = drug
+        drugs1 = drug
         return drugs1
     def inform_lists (self, limit):
         headers = {'User-Agent': 'http-client'}
@@ -39,7 +49,7 @@ class OpenFDAClient():
         drugs_raw = r1.read().decode("utf-8")
         conn.close()
         drug = json.loads(drugs_raw)
-        drugs_1 = drug
+        drugs1 = drug
         return drugs1
 
 class OpenFDAParser():
@@ -73,18 +83,7 @@ class OpenFDAParser():
                 list1.append(drugs1['results'][i]['openfda']['warnings'][0])
             else:
                 list1.append('Unknown')
-class OpenFdaHTML():
-    def new_html(self,json_list):
-        file_html= "<ul>"
-        for i in json_list:
-            file_html+= "<li>"+ i + "</li>"
-        file_html += "</ul>"
-        print( "The corresponding HTML file has been created")
-    def file_transmit(self,doc):
-        with open(doc, "r") as f:
-            content= f.read()
-        print(doc, "is succesfully prepared to be sent")
-        return
+
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         client=OpenFDAClient()
