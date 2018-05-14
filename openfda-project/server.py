@@ -4,7 +4,7 @@ import json
 import http.client
 
 IP = "10.10.108.135"
-PORT = 8087
+PORT = 8033
 socketserver.TCPServer.allow_reuse_address = True
 
 
@@ -237,7 +237,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
             elif "redirect" in self.path:
                 self.send_response(302)
-                self.send_header("Location", "http://10.10.108.135:8087/")
+                self.send_header("Location", "http://10.10.108.135:8033/")
                 self.end_headers()
 
             else:
