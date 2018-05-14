@@ -137,7 +137,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
             elif "searchCompany" in self.path:
                 self.send_response(200)
-                self.send_header('Type of content', 'text/html')
+                self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 list1 = []
 
@@ -167,7 +167,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
             elif "listDrugs" in self.path:
                 self.send_response(200)
-                self.send_header('Type of content', 'text/html')
+                self.send_header('Content-type', 'text/html')
                 self.end_headers()
 
                 list1 = []
@@ -184,7 +184,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
             elif "listCompanies" in self.path:
                 self.send_response(200)
-                self.send_header('Type of content', 'text/html')
+                self.send_header('Content-type', 'text/html')
                 self.end_headers()
 
                 list1 = []
@@ -201,7 +201,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
             elif "listWarnings" in self.path:
                 self.send_response(200)
-                self.send_header('Type of content', 'text/html')
+                self.send_header('Content-type', 'text/html')
                 self.end_headers()
 
                 list1 = []
