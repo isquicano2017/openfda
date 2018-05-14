@@ -75,6 +75,9 @@ class OpenFDAParser():
                 list1.append(drugs1["results"][i]["openfda"]["brand_name"][0])
             except KeyError:
                 list1.append("Unknown")
+
+
+
     def info_companies1(self, drugs1, list1):
         for i in range(len(drugs1["results"])):
             if "openfda" in drugs1["results"][i]:
@@ -186,10 +189,10 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj6 = Client.inform_lists(limit)
+                obj6 = client.inform_lists(limit)
                 Parser.info_companies1(obj6, list1)
 
-                HTML.html_visual(list1)
+                HTML.visual_html(list1)
                 with open("drug.html", "r") as f:
                     f = f.read()
                 self.wfile.write(bytes(f, "utf8"))
