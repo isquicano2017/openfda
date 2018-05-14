@@ -4,7 +4,7 @@ import json
 import http.client
 
 IP = "10.10.108.135"
-PORT = 8097
+PORT = 8004
 socketserver.TCPServer.allow_reuse_address = True
 
 class OpenFDA_HTML():
@@ -19,11 +19,11 @@ class OpenFDA_HTML():
                 f.write(elem_1)
             f.write(final)
 
-HTML= OpenFDA_HTML()
+HTML = OpenFDA_HTML()
 
 class OpenFDA_Client():
     def inform_drug(self, drug, limit):
-        headers = {'User-Agent': 'http-client'}
+        headers = {"User-Agent": "http-client"}
         conn = http.client.HTTPSConnection("api.fda.gov")
         url_inform_drug ="/drug/label.json?search=active_ingredient:" + drug + "&" + "limit=" + limit
         conn.request("GET", url_inform_drug, None, headers)
@@ -33,8 +33,9 @@ class OpenFDA_Client():
         drug = json.loads(drugs_raw)
         drugs1 = drug
         return drugs1
+
     def inform_company (self, drug, limit):
-        headers = {'User-Agent': 'http-client'}
+        headers = {"User-Agent": "http-client"}
         conn = http.client.HTTPSConnection("api.fda.gov")
         url_inform_company = "/drug/label.json?search=manufacturer_name:" + drug + " & " + "limit = " + limit
         conn.request("GET", url_inform_company, None, headers)
@@ -44,8 +45,9 @@ class OpenFDA_Client():
         drug = json.loads(drugs_raw)
         drugs1 = drug
         return drugs1
+
     def inform_lists (self, limit):
-        headers = {'User-Agent': 'http-client'}
+        headers = {"User-Agent": "http-client"}
         conn = http.client.HTTPSConnection("api.fda.gov")
         url_inform_lists = "/drug/label.json?" + "limit =" + limit
         conn.request("GET", url_inform_lists, None, headers)
@@ -55,7 +57,7 @@ class OpenFDA_Client():
         drug = json.loads(drugs_raw)
         drugs1 = drug
         return drugs1
-client= OpenFDA_Client()
+Client= OpenFDA_Client()
 
 class OpenFDA_Parser():
     def info_drugs (self,drugs1,list1):
@@ -119,7 +121,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     params = self.path.split("?")[1]
                     drug = params.split("&")[0].split("=")[1]
 
-                    obj1 = client.inform_drug(drug, limit)
+                    obj1 = Client.inform_drug(drug, limit)
                     Parser.info_drugs(obj1, list1)
 
 
@@ -129,7 +131,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     limit = params.split("&")[1].split("=")[1]
                     if not limit:
                         limit = "10"
-                    obj2 = client.inform_drug(drug, limit)
+                    obj2 = Client.inform_drug(drug, limit)
                     Parser.info_drugs(obj2, list1)
 
                 HTML.visual_html(list1)
@@ -149,7 +151,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     params = self.path.split("?")[1]
                     drug = params.split("&")[0].split("=")[1]
 
-                    obj3 = client.inform_company(drug, limit)
+                    obj3 = Client.inform_company(drug, limit)
                     Parser.info_companies(obj3, list1)
 
                 elif "&" in self.path:
@@ -160,7 +162,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     if not limit:
                         limit = "10"
 
-                    obj4 = client.inform_company(drug, limit)
+                    obj4 = Client.inform_company(drug, limit)
                     Parser.info_companies(obj4, list1)
 
                 HTML.visual_html(list1)
@@ -177,7 +179,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj5 = client.inform_lists(limit)
+                obj5 = Client.inform_lists(limit)
                 Parser.info_drugs1(obj5, list1)
 
                 HTML.visual_html(list1)
@@ -194,7 +196,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj6 = client.inform_lists(limit)
+                obj6 = Client.inform_lists(limit)
                 Parser.info_companies1(obj6, list1)
 
                 HTML.visual_html(list1)
@@ -211,7 +213,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj7 = client.inform_lists(limit)
+                obj7 = Client.inform_lists(limit)
                 Parser.info_warnings(obj7, list1)
 
                 HTML.visual_html(list1)
