@@ -4,7 +4,7 @@ import json
 import http.client
 
 IP = "10.10.108.135"
-PORT = 8031
+PORT = 8032
 socketserver.TCPServer.allow_reuse_address = True
 
 
@@ -81,7 +81,7 @@ class OpenFDA_Parser():
             except KeyError:
                 list1.append("Unknown")
 
-    def info_drugs_1(self, drug_1, list1):
+    def info_drugs1(self, drug_1, list1):
         for i in range(len(drug_1["results"])):
             try:
                 if "openfda" in drug_1["results"][i]:
@@ -113,7 +113,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
         try:
 
-            if self.path == "/":
+            if self.path == '/':
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
@@ -132,7 +132,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     drug = params.split("&")[0].split("=")[1]
 
                     obj1 = Client.inform_drug(drug, limit)
-                    Parser.info_drugs(obj1, list1)
+                    Parser.info_drug(obj1, list1)
 
                 elif "&" in self.path:
                     params = self.path.split("?")[1]
@@ -140,8 +140,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     limit = params.split("&")[1].split("=")[1]
                     if not limit:
                         limit = "10"
-                    obj2 = Client.inform_drug(drug, limit)
-                    Parser.info_drugs(obj2, list1)
+                    obj1 = Client.inform_drug(drug, limit)
+                    Parser.info_drug(obj1, list1)
 
                 HTML.visual_html(list1)
 
@@ -160,8 +160,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     params = self.path.split("?")[1]
                     drug = params.split("&")[0].split("=")[1]
 
-                    obj3 = Client.inform_company(drug, limit)
-                    Parser.info_companies(obj3, list1)
+                    obj2 = Client.inform_company(drug, limit)
+                    Parser.info_companies(obj2, list1)
 
                 elif "&" in self.path:
                     params = self.path.split("?")[1]
@@ -171,8 +171,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     if not limit:
                         limit = "10"
 
-                    obj4 = Client.inform_company(drug, limit)
-                    Parser.info_companies(obj4, list1)
+                    obj3 = Client.inform_company(drug, limit)
+                    Parser.info_companies(obj3, list1)
 
                 HTML.visual_html(list1)
                 with open("drug.html", "r") as f:
@@ -188,8 +188,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj5 = Client.inform_lists(limit)
-                Parser.info_drugs_1(obj5, list1)
+                obj4 = Client.inform_lists(limit)
+                Parser.info_drugs1(obj4, list1)
 
                 HTML.visual_html(list1)
                 with open("drug.html", "r") as f:
@@ -205,8 +205,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj6 = Client.inform_lists(limit)
-                Parser.info_companies1(obj6, list1)
+                obj5 = Client.inform_lists(limit)
+                Parser.info_companies1(obj5, list1)
 
                 HTML.visual_html(list1)
                 with open("drug.html", "r") as f:
@@ -222,12 +222,13 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 params = self.path.split("?")[1]
                 limit = params.split("=")[1]
 
-                obj7 = Client.inform_lists(limit)
-                Parser.info_warnings(obj7, list1)
+                obj6 = Client.inform_lists(limit)
+                Parser.info_warnings(obj6, list1)
 
                 HTML.visual_html(list1)
                 with open("drug.html", "r") as f:
                     file = f.read()
+
                 self.wfile.write(bytes(file, "utf8"))
 
             elif "secret" in self.path:
@@ -237,7 +238,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
             elif "redirect" in self.path:
                 self.send_response(302)
-                self.send_header("Location", "http://10.10.108.135:8031")
+                self.send_header("Location", "http://10.10.108.135:8032")
                 self.end_headers()
 
             else:
