@@ -8,7 +8,7 @@ PORT = 8097
 socketserver.TCPServer.allow_reuse_address = True
 
 
-class OpenFDA_HTML():
+class OpenFDAHTML():
     def visual_html(self, list1):
         intro = "<!doctype html>" + "\n" + "<html>" + "\n" + "<body>" + "\n" "<ul>" + "\n"
         final = "</ul>" + "\n" + "</body>" + "\n" + "</html>"
@@ -21,10 +21,10 @@ class OpenFDA_HTML():
             f.write(final)
 
 
-HTML = OpenFDA_HTML()
+HTML = OpenFDAHTML()
 
 
-class OpenFDA_Client():
+class OpenFDAClient():
     def inform_drug(self, drug, limit):
         headers = {"User-Agent": "http-client"}
         conn = http.client.HTTPSConnection("api.fda.gov")
@@ -62,10 +62,10 @@ class OpenFDA_Client():
         return drugs1
 
 
-Client = OpenFDA_Client()
+Client = OpenFDAClient()
 
 
-class OpenFDA_Parser():
+class OpenFDAParser():
     def info_drugs(self, drugs1, list1):
         for i in range(len(drugs1["results"])):
             if 'active_ingredient' in drugs1["results"][i]:
@@ -105,7 +105,7 @@ class OpenFDA_Parser():
                 list1.append('Unknown')
 
 
-Parser = OpenFDA_Parser()
+Parser = OpenFDAParser()
 
 
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
@@ -113,7 +113,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
         try:
 
-            if self.path == '/':
+            if self.path == "/":
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
