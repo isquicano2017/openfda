@@ -85,40 +85,32 @@ class OpenFDAParser():
                 list1.append(drugs1["results"][i]["openfda"]["warnings"][0])
             else:
                 list1.append('Unknown')
+Parser= OpenFDAParser()
 
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
-        client=OpenFDAClient()
-        parser= OpenFDAParser
-        HTML= OpenFdaHTML
-        #code=False
-        path= self.path
-        if path!= "/favicon.ico":
-            print("path is:%s..."%path)
-        if path=="/":
-            self.send_response(200)
-            self.send_header('Type of content', 'text/html')
-            self.end_headers()
-            with open("search_html", "r")as f:
-                content= f.read
-                self.wfile.write(bytes(content,"utf8"))
-        elif "searchDrug" in self.path:
-            self.send_response(200)
-            self.send_header('Type of content', 'text/html')
-            self.end_headers()
-            list1=[]
-            try:
-                print("A request has been made by the client")
-                active = path.split("=")[1].split("&")[0]
-                try:
-                    limit=path.split("=")[2]
-            if "&" not in self.path:
+        try:
+
+            if path=='/':
+                self.send_response(200)
+                self.send_header('Type of content', 'text/html')
+                self.end_headers()
+                with open("search_html", "r")as f:
+                    content= f.read
+                    self.wfile.write(bytes(content,"utf8"))
+            elif "searchDrug" in self.path:
+                self.send_response(200)
+                self.send_header('Type of content', 'text/html')
+                self.end_headers()
+                list1=[]
+
+                if "&" not in self.path:
                     limit = "10"
                     params = self.path.split("?")[1]
                     drug = params.split("&")[0].split("=")[1]
 
-                    obj1 = Client.communicate_active(drug, limit)
-                    Parser.extract_data_sdrugs(obj1, list1)
+                    obj1 = Client.inform_drug(drug, limit)
+                    Parser.info_drugs(obj1, list1)
 
 
                 elif "&" in self.path:
