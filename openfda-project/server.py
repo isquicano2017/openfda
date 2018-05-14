@@ -24,7 +24,7 @@ class OpenFDAClient():
         headers= {'User_Agent': 'http_client'}
         conn= http.client.HTTPSConnection("api.fda.gov")
         url_inform_drug="/drug/label.json?search=active_ingredient:" + drug + "&" + "limit=" + limit
-        conn.request("GET", url, None, headers)
+        conn.request("GET", url_inform_drug, None, headers)
         r1 = conn.getresponse()
         drugs_raw = r1.read().decode("utf-8")
         conn.close()
@@ -35,7 +35,7 @@ class OpenFDAClient():
         headers = {'User-Agent': 'http-client'}
         conn = http.client.HTTPSConnection("api.fda.gov")
         url_inform_company = "/drug/label.json?search=manufacturer_name:" + drug + " & " + "limit = " + limit
-        conn.request("GET", url, None, headers)
+        conn.request("GET", url_inform_company, None, headers)
         r1 = conn.getresponse()
         drugs_raw = r1.read().decode("utf-8")
         conn.close()
@@ -46,7 +46,7 @@ class OpenFDAClient():
         headers = {'User-Agent': 'http-client'}
         conn = http.client.HTTPSConnection("api.fda.gov")
         url_inform_lists = "/drug/label.json?" + "limit =" + limit
-        conn.request("GET", url, None, headers)
+        conn.request("GET", url_inform_lists, None, headers)
         r1 = conn.getresponse()
         drugs_raw = r1.read().decode("utf-8")
         conn.close()
