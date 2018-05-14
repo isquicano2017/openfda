@@ -8,7 +8,7 @@ PORT = 8091
 socketserver.TCPServer.allow_reuse_address = True
 
 
-class OpenFDAHTML():
+class OpenFDA_HTML():
     def visual_html(self, list1):
         intro = "<!doctype html>" + "\n" + "<html>" + "\n" + "<body>" + "\n" "<ul>" + "\n"
         final = "</ul>" + "\n" + "</body>" + "\n" + "</html>"
@@ -21,10 +21,10 @@ class OpenFDAHTML():
             f.write(final)
 
 
-HTML = OpenFDAHTML()
+HTML = OpenFDA_HTML()
 
 
-class OpenFDAClient():
+class OpenFDA_Client():
     def inform_drug(self, drug, limit):
         headers = {"User-Agent": "http-client"}
         conn = http.client.HTTPSConnection("api.fda.gov")
@@ -34,8 +34,8 @@ class OpenFDAClient():
         drugs_raw = r1.read().decode("utf-8")
         conn.close()
         drug = json.loads(drugs_raw)
-        drugs1 = drug
-        return drugs1
+        drug_1 = drug
+        return drug_1
 
     def inform_company(self, drug, limit):
         headers = {"User-Agent": "http-client"}
@@ -43,11 +43,11 @@ class OpenFDAClient():
         url_inform_company = "/drug/label.json?search=manufacturer_name:" + drug + " & " + "limit = " + limit
         conn.request("GET", url_inform_company, None, headers)
         r1 = conn.getresponse()
-        drugs_raw = r1.read().decode("utf-8")
+        drug_raw = r1.read().decode("utf-8")
         conn.close()
-        drug = json.loads(drugs_raw)
-        drugs1 = drug
-        return drugs1
+        drug = json.loads(drug_raw)
+        drug_1 = drug
+        return drug_1
 
     def inform_lists(self, limit):
         headers = {"User-Agent": "http-client"}
@@ -55,57 +55,57 @@ class OpenFDAClient():
         url_inform_lists = "/drug/label.json?" + "limit =" + limit
         conn.request("GET", url_inform_lists, None, headers)
         r1 = conn.getresponse()
-        drugs_raw = r1.read().decode("utf-8")
+        drug_raw = r1.read().decode("utf-8")
         conn.close()
-        drug = json.loads(drugs_raw)
-        drugs1 = drug
-        return drugs1
+        drug = json.loads(drug_raw)
+        drug_1 = drug
+        return drug_1
 
 
-Client = OpenFDAClient()
+Client = OpenFDA_Client()
 
 
-class OpenFDAParser():
-    def info_drugs(self, drugs1, list1):
-        for i in range(len(drugs1["results"])):
-            if 'active_ingredient' in drugs1["results"][i]:
-                list1.append(drugs1["results"][i]["active_ingredient"][0])
+class OpenFDA_Parser():
+    def info_drug(self, drug_1, list1):
+        for i in range(len(drug_1["results"])):
+            if 'active_ingredient' in drug_1["results"][i]:
+                list1.append(drug_1["results"][i]["active_ingredient"][0])
             else:
                 list1.append("Unknown")
 
-    def info_companies(self, drugs1, list1):
-        for i in range(len(drugs1["results"])):
+    def info_companies(self, drug_1, list1):
+        for i in range(len(drug_1["results"])):
             try:
-                if 'openfda' in drugs1["results"][i]:
-                    list1.append(drugs1["results"][i]["openfda"]["manufacturer name"][0])
+                if 'openfda' in drug_1["results"][i]:
+                    list1.append(drug_1["results"][i]["openfda"]["manufacturer name"][0])
             except KeyError:
                 list1.append("Unknown")
 
-    def info_drugs1(self, drugs1, list1):
-        for i in range(len(drugs1["results"])):
+    def info_drugs_1(self, drug_1, list1):
+        for i in range(len(drug_1["results"])):
             try:
-                if "openfda" in drugs1["results"][i]:
-                    list1.append(drugs1["results"][i]["openfda"]["brand_name"][0])
+                if "openfda" in drug_1["results"][i]:
+                    list1.append(drug_1["results"][i]["openfda"]["brand_name"][0])
             except KeyError:
                 list1.append("Unknown")
 
-    def info_companies1(self, drugs1, list1):
-        for i in range(len(drugs1["results"])):
+    def info_companies1(self, drug_1, list1):
+        for i in range(len(drug_1["results"])):
             try:
-                if "openfda" in drugs1["results"][i]:
-                    list1.append(drugs1["results"][i]["openfda"]["manufacturer_name"][0])
+                if "openfda" in drug_1["results"][i]:
+                    list1.append(drug_1["results"][i]["openfda"]["manufacturer_name"][0])
             except KeyError:
                 list1.append('Unknown')
 
-    def info_warnings(self, drugs1, list1):
-        for i in range(len(drugs1["results"])):
-            if "warnings" in drugs1["results"][i]:
-                list1.append(drugs1["results"][i]["openfda"]["warnings"][0])
+    def info_warnings(self, drug_1, list1):
+        for i in range(len(drug_1["results"])):
+            if "warnings" in drug_1["results"][i]:
+                list1.append(drug_1["results"][i]["openfda"]["warnings"][0])
             else:
                 list1.append('Unknown')
 
 
-Parser = OpenFDAParser()
+Parser = OpenFDA_Parser()
 
 
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
