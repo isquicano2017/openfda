@@ -4,7 +4,7 @@ import json
 import http.client
 
 IP= "10.10.108.135"
-PORT= 8090
+PORT= 8000
 socketserver.TCPServer.allow_reuse_address= True
 
 class OpenFdaHTML():
@@ -96,6 +96,7 @@ Parser= OpenFDAParser()
 
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
+
         try:
 
             if self.path =='/':
@@ -103,8 +104,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 with open("search.html", "r")as f:
-                    content= f.read
-                    self.wfile.write(bytes(content,"utf8"))
+                    data= f.read
+                    self.wfile.write(bytes(data,"utf8"))
             elif "searchDrug" in self.path:
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
