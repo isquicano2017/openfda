@@ -121,10 +121,12 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                         limit = "10"
                     obj2 = Client.inform_drug(drug, limit)
                     Parser.info_drugs(obj2, list1)
+
                 HTML.html_visual(list1)
                 with open("drug.html", "r") as f:
                     f=f.read()
                 self.wfile.write(bytes(f,"utf8"))
+
             elif "searchCompany" in self.path:
                 self.send_response(200)
                 self.send_header('Type of content', 'text/html')
@@ -135,8 +137,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     params = self.path.split("?")[1]
                     drug = params.split("&")[0].split("=")[1]
 
-                    obj3 = Client.communicate_active(drug, limit)
-                    Parser.extract_data_sdrugs(obj3, list1)
+                    obj3 = Client.inform_company(drug, limit)
+                    Parser.info_companies(obj3, list1)
 
                 elif "&" in self.path:
                     params = self.path.split("?")[1]
@@ -144,29 +146,38 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     limit = params.split("&")[1].split("=")[1]
                     if not limit:
                         limit = "10"
-                    obj4 = Client.communicate_active(drug, limit)
-                    Parser.extract_data_sdrugs(obj4, list1)
-        elif "listDrugs" in self.path:
-            self.send_response(200)
-            self.send_header('Type of content', 'text/html')
-            self.end_headers()
-            list1 = []
-            try:
-                print("A request has been made by the client")
-                try:
-                    limit=path.split("=")[1]
+                    obj4 = Client.inform_company(drug, limit)
+                    Parser.info_companies(obj4, list1)
+                HTML.html_visual(list1)
+                with open("drug.html", "r") as f:
+                    f = f.read()
+                self.wfile.write(bytes(f, "utf8"))
 
-            obj5 = Client.communicate_list(limit)
-            Parser.extract_data_ldrugs(obj5, list1)
-        elif "listCompanies" in self.path:
-            self.send_response(200)
-            self.send_header('Type of content', 'text/html')
-            self.end_headers()
-            list1 = []
-            try:
-                print("A request has been made by the client")
-                try:
-                    limit = path.split("=")[1]
+            elif "listDrugs" in self.path:
+                self.send_response(200)
+                self.send_header('Type of content', 'text/html')
+                self.end_headers()
+
+                list1 = []
+                params = self.path.split("?")[1]
+                limit = params.split("=")[1]
+
+                obj5 = Client.inform_lists(limit)
+                Parser.info_drugs1(obj5, list1)
+
+                HTML.html_visual(list1)
+                with open("drug.html", "r") as f:
+                    f = f.read()
+                self.wfile.write(bytes(f, "utf8"))
+
+            elif "listCompanies" in self.path:
+                self.send_response(200)
+                self.send_header('Type of content', 'text/html')
+                self.end_headers()
+
+                list1 = []
+                params = self.path.split("?")[1]
+                limit = params.split("=")[1]
             obj6 = Client.communicate_list(limit)
             Parser.extract_data_ldrugs(obj6, list1)
         elif "listWarnings" in self.path:
