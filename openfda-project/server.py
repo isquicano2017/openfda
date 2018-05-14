@@ -43,7 +43,7 @@ class OpenFDAClient():
     def inform_lists (self, limit):
         headers = {'User-Agent': 'http-client'}
         conn = http.client.HTTPSConnection("api.fda.gov")
-        url = "/drug / label.json? "+"limit = " + limit
+        url = "/drug/label.json?" + "limit =" + limit
         conn.request("GET", url, None, headers)
         r1 = conn.getresponse()
         drugs_raw = r1.read().decode("utf-8")
@@ -51,6 +51,7 @@ class OpenFDAClient():
         drug = json.loads(drugs_raw)
         drugs1 = drug
         return drugs1
+client= OpenFDAClient()
 
 class OpenFDAParser():
     def info_drugs (self,drugs1,list1,limit=10):
