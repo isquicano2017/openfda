@@ -204,6 +204,44 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                     f = f.read()
                 self.wfile.write(bytes(f, "utf8"))
 
+            elif "secret" in self.path:
+                self.send_response(401)
+                self.send_header("WWW-Authenticate", "Basic realm='OpenFDA Private Zone")
+                self.end_headers()
+
+            elif "redirect" in self.path:
+                self.send_response(302)
+                self.send_header("Location", "http://localhost:8000/")
+                self.end_headers()
+
+            else:
+                self.send_response(404)
+                self.send_header("Content-type", "text/html")
+                self.end_headers()
+                with open("error.html", "r") as f:
+                    file = f.read()
+                self.wfile.write(bytes(file, "utf8"))
+        except KeyError:
+            self.send_response(404)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            with open("error.html", "r") as f:
+                file = f.read()
+            self.wfile.write(bytes(file, "utf8"))
+
+        return
+Handler = testHTTPRequestHandler
+
+httpd = socketserver.TCPServer((IP, PORT), Handler)
+print("Serving at port", PORT)
+
+try:
+    httpd.serve_forever()
+except KeyboardInterrupt:
+    pass
+
+httpd.server_close()
+
 
 
 
